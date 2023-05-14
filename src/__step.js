@@ -25,6 +25,11 @@
  * 13. activate sign-in method (google, facebook, github, twitter etc)
  * 14. [vite] : change 127.0.0.1 to localhost
  * 
+ * -------------------
+ * More Auth Provider 
+ * -------------------
+ * 00. Github
+ * 1. activate the auth provider (create app, provide redirect url, client id, client secret)
  * 
  * 
  * 

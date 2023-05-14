@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
 import app from '../../firebase/firebase.init';
 
 const Login = () => {
@@ -8,12 +8,13 @@ const Login = () => {
 
     // google auth method
     const auth = getAuth(app);
-    console.log(app)
-    const provider = new GoogleAuthProvider();
+    const googleProvider = new GoogleAuthProvider();
+    // gitHub auth
+    const githubProvider = new GithubAuthProvider();
 
-    // Sign in Method
+    // Google Sign in Method
     const handleGoogleSignIn = () => {
-        signInWithPopup(auth, provider)
+        signInWithPopup(auth, googleProvider)
             .then(result => {
                 const loggedInUser = result.user;
                 console.log(loggedInUser);
@@ -23,6 +24,20 @@ const Login = () => {
             .catch(error => {
                 console.log('error', error.message)
             })
+    }
+
+    // Github Sign In
+    const handleGithubSignIn = () => {
+        signInWithPopup(auth, githubProvider)
+        .then(result =>{
+            const loggedUser = result.user;
+            console.log(loggedUser)
+            setUser(loggedUser)
+
+        })
+        .catch(error =>{
+            console.log(error)
+        })
     }
 
     // sign out method
@@ -35,7 +50,6 @@ const Login = () => {
             .catch(error => {
                 console.log(error);
             })
-
     }
 
 
@@ -49,7 +63,11 @@ const Login = () => {
                 user ?
                     <button onClick={handleSignOut}>Sign Out</button>
                     :
-                    <button onClick={handleGoogleSignIn}>Google login</button>
+                    <>
+                        <button onClick={handleGoogleSignIn}>Google login</button>
+                        <button onClick={handleGithubSignIn}>Github Login</button>
+
+                    </>
             }
 
             {
